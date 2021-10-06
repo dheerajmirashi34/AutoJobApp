@@ -12,6 +12,6 @@ public class Main {
 
         NJITAutoJobApp.invokeBrowser();
         NJITAutoJobApp.useCredsToLogIn();
-
+        NJITAutoJobApp.goTOCornerStore();
     }
 }

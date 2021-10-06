@@ -1,6 +1,7 @@
 package com.GambhirCoding.Summer2022;
 
 import org.apache.commons.lang3.NotImplementedException;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -12,13 +13,14 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class NJITAutoJobApp {
+    static WebDriver driver;
 
     public static void invokeBrowser(){
         try{
             //TODO: Give a relative path
             System.setProperty("webdriver.chrome.driver","C:\\Users\\dmirashi\\Downloads\\chromedriver_win32\\chromedriver.exe");
 
-            WebDriver driver = new ChromeDriver();
+            driver = new ChromeDriver();
             driver.manage().deleteAllCookies();
             driver.manage().window().maximize();
             driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -55,9 +57,39 @@ public class NJITAutoJobApp {
         } catch (FileNotFoundException ex) {
             //TODO: handle File not found
         } catch (IOException ex) {
-            //TODO: Handle I/o Eoors
+            //TODO: Handle I/o Errors
         }
 
-        System.out.println(user);
+        driver.findElement(By.id("username")).sendKeys(user);
+
+        driver.findElement(By.id("password")).sendKeys(password);
+
+        driver.findElement(By.xpath("/html/body/div/div[2]/div/div[1]/form/div[3]/button")).click();
+
+        driver.findElement(By.id("accept")).click();
+        driver.findElement(By.id("submitbtn")).click();
+
     }
+
+    public static void goTOCornerStore()
+    {
+
+        driver.get("https://portal.njit.edu/web/home-community/student-services");
+        driver.get("https://myhub.njit.edu/see/");
+        driver.findElement(By.xpath("/html/body/div[2]/div/div[2]/a")).click();
+        //driver.findElement(By.xpath("//*[@id=\"collapse7\"]/div/ul/li[1]/a")).click();
+        driver.get("https://njit.csod.com/samldefault.aspx?ouid=2");
+
+        //driver.findElement(By.xpath("//*[@id=\"collapse8\"]/div/ul/li[1]/a")).click();
+
+        if(driver.findElement(By.xpath("//*[@id=\"CloseButton\"]")).isDisplayed())
+        {
+            driver.findElement(By.xpath("//*[@id=\"CloseButton\"]")).click();
+        }
+
+        driver.findElement(By.xpath("/html/body/form/div[4]/div/nav/ul/li[3]/a")).click();
+
+    }
+
+
 }
